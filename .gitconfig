@@ -6,8 +6,8 @@
 [diff]
      #   external = $HOME/bin/git_diff_wrapper
 [pager]
-        diff = 
-        blame = 
+	diff = true
+	blame = true
 [pack]
         threads = 0
 [diff]
