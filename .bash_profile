@@ -10,3 +10,4 @@ if [ -f ~/.bashrc ]; then
     . ~/.bashrc
 fi
 
+alias s="git status --short"
