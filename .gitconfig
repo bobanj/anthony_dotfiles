@@ -1,16 +1,28 @@
 [user]
-        name = Anthony Mayer
-        email = adwmayer@gmail.com
+    name = Anthony Mayer
+    email = adwmayer@gmail.com
 [color]
-        ui = auto
+    ui = auto
 [diff]
-     #   external = $HOME/bin/git_diff_wrapper
+#    external = $HOME/bin/git_diff_wrapper
 [pager]
-	diff = true
-	blame = true
+#    diff =
 [pack]
-        threads = 0
+    threads = 0
 [diff]
-        renamelimit = 0
+    renamelimit = 0
+[alias]
+    upstream = !sh -c '\
+        git config branch.`git branch-name`.upstream || \
+        branch=`git branch-name` && \
+        remote=`git config \"branch.$branch.remote\"` && \
+        merge=`git config \"branch.$branch.merge\"|sed s@^refs/heads/@@`&& \
+        echo $remote/$merge\
+    '
+    base = !git merge-base `git upstream` HEAD
+    diffbase = !sh -c 'git diff `git base` "$@"' -
+    bb = !sh -c 'eval `tmux-env` && publish-branch -f && bb-run -p 1 '"$@"''
+    bby = !sh -c 'eval `tmux-env` && git bb && review-branch'
+    lol = log --oneline --graph --decorate
 
 # vim:sts=4:sw=4:et:
