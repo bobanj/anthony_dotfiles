@@ -21,8 +21,9 @@
     '
     base = !git merge-base `git upstream` HEAD
     diffbase = !sh -c 'git diff `git base` "$@"' -
-    bb = !sh -c 'eval `tmux-env` && publish-branch -f && bb-run -p 1 '"$@"''
+    bb = !sh -c 'eval `tmux-env` && publish-branch -f && bb-run -p 5 '"$@"''
     bby = !sh -c 'eval `tmux-env` && git bb && review-branch'
     lol = log --oneline --graph --decorate
+    sync = !git fetch canon && git pull canon master
 
 # vim:sts=4:sw=4:et:
