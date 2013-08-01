@@ -101,3 +101,7 @@ fi
 if [ -d ~/.bash_completion.d ]; then
     source ~/.bash_completion.d/*.sh
 fi
+
+if [[ "$TMUX" ]]; then
+	PROMPT_COMMAND='eval `/nail/scripts/tmux-env`'
+fi

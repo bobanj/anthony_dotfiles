@@ -11,3 +11,4 @@ if [ -f ~/.bashrc ]; then
 fi
 
 alias s="git status --short"
+alias fix="tmux-env"

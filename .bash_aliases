@@ -45,3 +45,5 @@ if [ -f ~/mypy/bin/activate ]; then
 	function activate() { source ~/mypy/bin/activate; }
 	activate
 fi
+
+alias wt="tools/watch-templates ."
