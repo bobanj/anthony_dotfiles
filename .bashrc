@@ -61,6 +61,30 @@ if [[ -e /nail/scripts/aliases.sh ]]; then
        unset BT
 fi
 
+function detect_git_dirty {
+  local git_status=$(git status 2>&1 | tail -n1)
+    [[ $git_status != "fatal: Not a git repository (or any of the parent directories): .git" ]] && [[ $git_status != "nothing to commit, working directory clean" ]] && echo "*"
+}
+
+function detect_git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/"
+  }
+
+function dev_info {
+echo "($(detect_git_branch)$(detect_git_dirty))"
+}
+
+# Colors
+txtred='\e[0;31m' # Red
+txtwht='\e[0;37m' # White
+txtrst='\e[0m' # Text Reset
+
+# Custom command prompt
+export PS1="\[$txtwht\]\w \[$txtred\]\$(dev_info) \[$txtrst\]"
+#export PS1="\u@\h \[$txtwht\]\w\[$txtred\]\$(dev_info)\[$txtrst\]\$ "
+# If you don't have colors, use something like this instead:
+# export PS1="\w \$(dev_info) "
+
 # set a fancy prompt (non-color, unless we know we "want" color)
  GREEN='\[\e[1;32m\]'
 YELLOW='\[\e[1;33m\]'
@@ -68,7 +92,8 @@ YELLOW='\[\e[1;33m\]'
 PURPLE='\[\e[1;35m\]'
   TEAL='\[\e[1;36m\]'
    END='\[\e[0;39m\]'
-   PS1='$(noerr __git_ps1 "'"${TEAL}(%s)${END} "'")${debian_chroot:+($debian_chroot)}'"${BLUE}\u${END}@${GREEN}\h${END}:${YELLOW}\w${END} \n${PURPLE}[\D{%a %m-%d %I:%M:%S%p}]${END}\$ "
+#   PS1='$(noerr __git_ps1 "'"${TEAL}(%s)${END} "'")${debian_chroot:+($debian_chroot)}'"${BLUE}\u${END}@${GREEN}\h${END}:${YELLOW}\w${END} \n${PURPLE}[\D{%a %m-%d %I:%M:%S%p}]${END}\$ "
+PS1='$(dev_info)${debian_chroot:+($debian_chroot)}'"${BLUE}\u${END}@${GREEN}\h${END}:${YELLOW}\w${END}\$ "
 
 case "$TERM" in
 *-256col*)

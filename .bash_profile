@@ -11,4 +11,9 @@ if [ -f ~/.bashrc ]; then
 fi
 
 alias s="git status --short"
+alias gst="git status"
 alias fix="tmux-env"
+
+# PyEnv
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+

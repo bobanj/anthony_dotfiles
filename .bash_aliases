@@ -1,4 +1,6 @@
 #!/not/executable/bash
+# YELP
+alias ydev='ssh dev'
 
 alias tmux-env='eval `~/bin/tmux-env`'
 alias crterm='export TERM=xterm-256color; source ~/.bashrc'
